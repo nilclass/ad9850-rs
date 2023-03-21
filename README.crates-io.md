@@ -1,22 +1,14 @@
-# `ad9850` - Embedded driver for the AD9850 DDS synthesizer chip
+# ad9850
 
-![Crates.io](https://img.shields.io/crates/v/ad9850?style=flat-square)
-![Crates.io](https://img.shields.io/crates/l/ad9850?style=flat-square)
+## `ad9850` - Embedded driver for the AD9850 DDS synthesizer chip
 
 The AD9850 is a DDS Synthesizer chip sold by Analog Devices. Check the [datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/AD9850.pdf) for general information about it.
 
-This Rust crate implements an interface for embedded devices to control such an AD9850 chip.
+This crate implements an interface for embedded devices to control such an AD9850 chip.
 
 The only dependency of this crate is that your device has 4 digital output pins which implement the [`embedded_hal::digital::v2::OutputPin`] trait.
 
-## Supported features
-
-- [x] Reset the device
-- [x] Program in Serial mode
-- [ ] Program in Parallel mode
-- [ ] Power down / wakeup
-
-## Usage example
+### Usage example
 
 This example uses the [`arduino-hal`](https://github.com/Rahix/avr-hal). The `ad9850` library is not device specific though, so
 it should be easy to adapt the example to other devices.
@@ -37,19 +29,36 @@ fn main() -> ! {
     //                   ^^^^ unwrap is ok here, since `set_low`/`set_high`
     //                        are infallible in the arduino-hal.
 
-    // Set the output frequency to 1 MHz
-    ad9850.set_frequency(1.0);
+    // Set output frequency to 1 MHz
+    ad9850.set_frequency(1000000.0);
 }
 ```
 
-## Documentation
+### Supported features
 
-For further information, please refer to the generated documentation at https://docs.rs/ad9850/latest/ad9850/
+- [x] Reset the device
+- [x] Program in Serial mode
+- [ ] Program in Parallel mode
+- [ ] Power down / wakeup
 
-## Contribution
+### A note about timing
 
-Contributions are welcome!
+Communication with the Ad9850 involves sending "pulses" on the
+RESET, W_CLK and FQ_UD lines. According to the datasheet, these
+pulses must be at least $3.5ns$ long for RESET and W_CLK and at
+least $7ns$ for the FQ_UD line.
 
-For feature requests, issues or anything else, please [open an issue on github](https://github.com/nilclass/ad9850/issues/new).
+This implementation does not insert any "delay" between toggling
+the pins high and low, so the pulse width depends on the CPU frequency
+of the device this code is run on.
 
-## 
+Example: if the MCU runs at 16 MHz, the minimum pulse width attained
+this way is $\frac{1}{16MHz} = 62ns$, which is way above the
+required width of $7ns$.
+
+If your MCU runs at a significantly higher frequency, this approach
+may fail and you'll have to modify the code to insert delays.
+
+Feel free to [open an issue](https://github.com/nilclass/ad9850-rs/issues/new), if you run into timing issues.
+
+License: MIT
