@@ -29,7 +29,7 @@
 //!     //                        are infallible in the arduino-hal.
 //!
 //!     // Set output frequency to 1 MHz
-//!     ad9850.set_frequency(1e6);
+//!     ad9850.set_frequency(1000000.0);
 //! }
 //! ```
 //!
@@ -52,7 +52,7 @@
 //! of the device this code is run on.
 //!
 //! Example: if the MCU runs at 16 MHz, the minimum pulse width attained
-//! this way is $ \frac{1}{16MHz} = 62ns $, which is way above the
+//! this way is $\frac{1}{16MHz} = 62ns$, which is way above the
 //! required width of $7ns$.
 //!
 //! If your MCU runs at a significantly higher frequency, this approach
@@ -195,7 +195,7 @@ where
     /// Computes the proper tuning word (assuming an oscillator frequency of 125MHz)
     /// and calls `update`.
     pub fn set_frequency(&mut self, frequency: f32) -> Result<(), E> {
-        self.update(util::frequency_to_tuning_word(frequency, DEFAULT_OSCILLATOR_FREQUENCY), 0)
+        self.update(util::frequency_to_tuning_word(frequency, self.osc_freq), 0)
     }
 
     /// Set output frequency and phase to given values
@@ -209,7 +209,7 @@ where
     ///
     pub fn set_frequency_and_phase(&mut self, frequency: f32, phase: u8) -> Result<(), E> {
         self.update(
-            util::frequency_to_tuning_word(frequency, DEFAULT_OSCILLATOR_FREQUENCY),
+            util::frequency_to_tuning_word(frequency, self.osc_freq),
             util::phase_to_control_byte(phase).expect("invalid phase"),
         )
     }
