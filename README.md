@@ -1,7 +1,7 @@
 # `ad9850` - Embedded driver for the AD9850 DDS synthesizer chip
 
-![Crates.io](https://img.shields.io/crates/v/ad9850?style=flat-square)
-![Crates.io](https://img.shields.io/crates/l/ad9850?style=flat-square)
+[![Crates.io](https://img.shields.io/crates/v/ad9850?style=flat-square)](https://crates.io/crates/ad9850)
+[![LICENSE-MIT](https://img.shields.io/crates/l/ad9850?style=flat-square)](./LICENSE-MIT)
 
 The AD9850 is a DDS Synthesizer chip sold by Analog Devices. Check the [datasheet](https://www.analog.com/media/en/technical-documentation/data-sheets/AD9850.pdf) for general information about it.
 
