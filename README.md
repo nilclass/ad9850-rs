@@ -7,8 +7,6 @@ The AD9850 is a DDS Synthesizer chip sold by Analog Devices. Check the [datashee
 
 This Rust crate implements an interface for embedded devices to control such an AD9850 chip.
 
-The only dependency of this crate is that your device has 4 digital output pins which implement the [`embedded_hal::digital::v2::OutputPin`] trait.
-
 ## Supported features
 
 - [x] Reset the device
@@ -19,7 +17,8 @@ The only dependency of this crate is that your device has 4 digital output pins 
 ## Usage example
 
 This example uses the [`arduino-hal`](https://github.com/Rahix/avr-hal). The `ad9850` library is not device specific though, so
-it should be easy to adapt the example to other devices.
+it should be easy to adapt the example to other devices. The only requirement is that the device's pins have an implementation
+of the `OutputPin` trait from `embedded_hal`.
 
 ```rust
 #[arduino_hal::entry]
@@ -50,6 +49,6 @@ For further information, please refer to the generated documentation at https://
 
 Contributions are welcome!
 
-For feature requests, issues or anything else, please [open an issue on github](https://github.com/nilclass/ad9850/issues/new).
+For feature requests, issues or anything else, please [open an issue on github](https://github.com/nilclass/ad9850-rs/issues/new).
 
 ## 
