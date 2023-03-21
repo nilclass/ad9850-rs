@@ -37,7 +37,7 @@ fn main() -> ! {
     //                        are infallible in the arduino-hal.
 
     // Set the output frequency to 1 MHz
-    ad9850.set_frequency(1.0);
+    ad9850.set_frequency(1000000.0);
 }
 ```
 
