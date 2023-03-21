@@ -53,7 +53,7 @@ the pins high and low, so the pulse width depends on the CPU frequency
 of the device this code is run on.
 
 Example: if the MCU runs at 16 MHz, the minimum pulse width attained
-this way is $ 2*\frac{1}{16MHz} = 125ns $, which is way above the
+this way is $\frac{1}{16MHz} = 62ns$, which is way above the
 required width of $7ns$.
 
 If your MCU runs at a significantly higher frequency, this approach
