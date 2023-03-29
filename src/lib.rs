@@ -60,8 +60,8 @@
 //!
 //! Feel free to [open an issue](https://github.com/nilclass/ad9850-rs/issues/new), if you run into timing issues.
 
-use embedded_hal::digital::v2::OutputPin;
 use core::marker::PhantomData;
+use embedded_hal::digital::v2::OutputPin;
 
 /// Default frequency of the oscillator connected to the AD9850.
 pub const DEFAULT_OSCILLATOR_FREQUENCY: f32 = 125e6;
@@ -113,7 +113,14 @@ where
     ///   not to ground the D7 pin if you are planning to use serial mode.
     ///
     pub fn new(reset: Reset, data: Data, fq_ud: FqUd, w_clk: WClk) -> Self {
-        Self { reset, data, fq_ud, w_clk, osc_freq: DEFAULT_OSCILLATOR_FREQUENCY, marker: PhantomData }
+        Self {
+            reset,
+            data,
+            fq_ud,
+            w_clk,
+            osc_freq: DEFAULT_OSCILLATOR_FREQUENCY,
+            marker: PhantomData,
+        }
     }
 
     /// Same as [`new`](Ad9850::new), but allows the oscillator frequency to be specified.
@@ -121,8 +128,21 @@ where
     /// Use this if your board's oscillator is **not** 125 MHz.
     ///
     /// This value is used in calculations done by [`set_frequency`](Ad9850::set_frequency) and [`set_frequency_and_phase`](Ad9850::set_frequency_and_phase).
-    pub fn new_with_osc_freq(reset: Reset, data: Data, fq_ud: FqUd, w_clk: WClk, osc_freq: f32) -> Self {
-        Self { reset, data, fq_ud, w_clk, osc_freq, marker: PhantomData }
+    pub fn new_with_osc_freq(
+        reset: Reset,
+        data: Data,
+        fq_ud: FqUd,
+        w_clk: WClk,
+        osc_freq: f32,
+    ) -> Self {
+        Self {
+            reset,
+            data,
+            fq_ud,
+            w_clk,
+            osc_freq,
+            marker: PhantomData,
+        }
     }
 
     /// Reset the ad9850 device into serial mode.
@@ -200,7 +220,7 @@ where
 
     /// Set output frequency and phase to given values
     ///
-    /// 
+    ///
     ///
     ///
     /// # Panics
