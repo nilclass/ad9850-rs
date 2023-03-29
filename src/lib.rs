@@ -234,7 +234,7 @@ where
         self.shift_out((tuning_word & 0xFF) as u8)?;
         self.shift_out((tuning_word >> 8 & 0xFF) as u8)?;
         self.shift_out((tuning_word >> 16 & 0xFF) as u8)?;
-        self.shift_out((tuning_word >> 23 & 0xFF) as u8)?;
+        self.shift_out((tuning_word >> 24 & 0xFF) as u8)?;
         // force control bits to be zero, to avoid surprises
         self.shift_out(control_and_phase & 0b11111100)?;
         self.fq_ud.set_high()?;
